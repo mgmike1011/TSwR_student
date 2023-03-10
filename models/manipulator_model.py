@@ -28,9 +28,9 @@ class ManiuplatorModel:
         d1_1 = d1*d1
         d2_2 = d2*d2
         M[0, 0] = self.m1*d1_1 + self.I_1 + self.m2*self.l1**2 + self.m2*d2_2 + 2*self.m2*self.l1*d2*np.cos(q2) + self.I_2*self.m3*self.l1**2 + self.m3*self.l1**2 + self.m3*self.l2**2 + 2*self.m3*self.l1*self.l2*np.cos(q2) + self.I_3
-        M[0, 1] = self.m2*d2_2 + self.I2 + self.m3*self.l2**2 + self.m2*self.l1*d2*np.cos(q2) + self.m3*self.l1*self.l2*np.cos(q2) + self.I_3
+        M[0, 1] = self.m2*d2_2 + self.I_2 + self.m3*self.l2**2 + self.m2*self.l1*d2*np.cos(q2) + self.m3*self.l1*self.l2*np.cos(q2) + self.I_3
         M[1, 0] = self.m2*d2_2 + self.m2*self.l1*d2*np.cos(q2) + self.I_2 + self.m3*self.l2**2 + self.m3*self.l1*self.l2*np.cos(q2) + self.I_3
-        M[1, 1] = self.m2*d2 + self.I_2 + self.m3*self.l2**2 + self.I_3
+        M[1, 1] = self.m2*d2_2 + self.I_2 + self.m3*self.l2**2 + self.I_3
         return M #NotImplementedError()
 
     def C(self, x):
