@@ -9,8 +9,6 @@ class MMAController(Controller):
         # II:  m3=0.01, r3=0.01
         # III: m3=1.0,  r3=0.3
 
-        self.Tp = Tp
-
         self.Model_1 = ManiuplatorModel(Tp)
         self.Model_1.m3 = 0.1
         self.Model_1.r3 = 0.05
@@ -25,10 +23,27 @@ class MMAController(Controller):
 
         self.models = [self.Model_1, self.Model_2, self.Model_3]
         self.i = 0
+        self.u = np.zeros((2, 1))
 
     def choose_model(self, x):
         # TODO: Implement procedure of choosing the best fitting model from self.models (by setting self.i)
-        pass
+        q = x[:2] #Wyjscie y
+        q_dot = x[2:] #Pochodna wyjscia y
+        x_mi = np.zeros((2, 3))
+        for i, model in enumerate(self.models):
+            M = model.M(x)
+            C = model.C(x)
+            y = M @ np.reshape(self.u, (2, 1)) + C @ np.reshape(q_dot, (2, 1))
+            x_mi[0, i] = y[0]
+            x_mi[1, i] = y[1]
+        # Model selection
+        err_1 = np.sum(q - x_mi[:, 0])
+        err_2 = np.sum(q - x_mi[:, 1])
+        err_3 = np.sum(q - x_mi[:, 2])
+        err = [err_1, err_2, err_3]
+        min_ = min(err)
+        ind = err.index(min_)
+        self.i = ind
 
     def calculate_control(self, x, q_r, q_r_dot, q_r_ddot):
         self.choose_model(x)
@@ -43,4 +58,5 @@ class MMAController(Controller):
         M = self.models[self.i].M(x)
         C = self.models[self.i].C(x)
         u = M @ v[:, np.newaxis] + C @ q_dot[:, np.newaxis]
+        self.u = u
         return u
