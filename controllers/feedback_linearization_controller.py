@@ -14,12 +14,10 @@ class FeedbackLinearizationController(Controller):
         """
         M = self.model.M(x)
         C = self.model.C(x)
-        # q_r, q_r_dot,  q_r_ddot - wartości zadane
-        # v = q_r_ddot
         e = q_r - x[:2]
         e_dot = q_r_dot - x[2:]
         Kd = np.array([[25, 0], [0, 15]])
         Kp = np.array([[25, 0], [0, 60]])
         v = q_r_ddot + Kd@e_dot + Kp@e
         tau = M@v + C@q_r_dot
-        return tau #NotImplementedError()
+        return tau

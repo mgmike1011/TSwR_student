@@ -37,9 +37,9 @@ class MMAController(Controller):
             x_mi[0, i] = y[0]
             x_mi[1, i] = y[1]
         # Model selection
-        err_1 = np.sum(q - x_mi[:, 0])
-        err_2 = np.sum(q - x_mi[:, 1])
-        err_3 = np.sum(q - x_mi[:, 2])
+        err_1 = np.sum(abs(q - x_mi[:, 0]))
+        err_2 = np.sum(abs(q - x_mi[:, 1]))
+        err_3 = np.sum(abs(q - x_mi[:, 2]))
         err = [err_1, err_2, err_3]
         min_ = min(err)
         ind = err.index(min_)
@@ -51,10 +51,9 @@ class MMAController(Controller):
         q_dot = x[2:]
         e = q_r - q
         e_dot = q_r_dot - q_dot
-        Kd = np.array([[25, 0], [0, 15]])
-        Kp = np.array([[25, 0], [0, 60]])
+        Kd = np.array([[25, 0], [0, 25]])
+        Kp = np.array([[25, 0], [0, 65]])
         v = q_r_ddot + Kd @ e_dot + Kp @ e
-        # v = q_r_ddot # TODO: add feedback
         M = self.models[self.i].M(x)
         C = self.models[self.i].C(x)
         u = M @ v[:, np.newaxis] + C @ q_dot[:, np.newaxis]
