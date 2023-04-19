@@ -17,7 +17,7 @@ Tp = 0.01
 end = 3.
 
 
-# TODO: Switch to MMAC as soon as you implement it
+#Switch to MMAC as soon as you implement it
 controller = MMAController(Tp)
 # controller = FeedbackLinearizationController(Tp)
 # controller = DummyController(Tp)
