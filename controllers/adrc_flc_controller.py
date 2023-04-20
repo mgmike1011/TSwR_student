@@ -33,7 +33,6 @@ class ADRFLController(Controller):
         self.update_params(q0[:2], q0[2:])
 
     def update_params(self, q, q_dot):
-        ### TODO Implement procedure to set eso.A and eso.B
         A = np.zeros((6, 6))
         A[0, 2] = 1
         A[1, 3] = 1
@@ -58,7 +57,6 @@ class ADRFLController(Controller):
         self.eso.B = B
 
     def calculate_control(self, x, q_d, q_d_dot, q_d_ddot):
-        ### TODO implement centralized ADRFLC
         q1, q2, q1_dot, q2_dot = x
         q = np.array([q1, q2])
         M = self.model.M(x)
@@ -74,4 +72,3 @@ class ADRFLController(Controller):
         self.update_params(x_hat, x_hat_dot)
         self.eso.update(q.reshape(len(q), 1), u.reshape(len(u), 1))
         return u
-        # return NotImplementedError

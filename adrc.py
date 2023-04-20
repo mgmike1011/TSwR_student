@@ -19,12 +19,12 @@ traj_gen = Poly3(np.array([0., 0.]), np.array([pi/4, pi/6]), end)
 
 b_est_1 = 5
 b_est_2 = 5
-kp_est_1 = 25
-kp_est_2 = 25
-kd_est_1 = 50
-kd_est_2 = 50
-p1 = 10
-p2 = 10
+kp_est_1 = 50
+kp_est_2 = 50
+kd_est_1 = 60
+kd_est_2 = 60
+p1 = 100
+p2 = 100
 
 q0, qdot0, _ = traj_gen.generate(0.)
 q1_0 = np.array([q0[0], qdot0[0]])
