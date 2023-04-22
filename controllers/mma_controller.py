@@ -27,8 +27,8 @@ class MMAController(Controller):
 
     def choose_model(self, x):
         # Implement procedure of choosing the best fitting model from self.models (by setting self.i)
-        q = x[:2] #Wyjscie y
-        q_dot = x[2:] #Pochodna wyjscia y
+        q = x[:2]
+        q_dot = x[2:]
         x_mi = np.zeros((2, 3))
         for i, model in enumerate(self.models):
             M = model.M(x)

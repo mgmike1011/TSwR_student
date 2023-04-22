@@ -39,7 +39,7 @@ class ADRCJointController(Controller):
         v = q_d_ddot + self.kd * e_dot + self.kp * e
         u = (v - f) / self.b
         self.eso.update(q, u)
-        # update B
+
         l1 = 0.5
         r1 = 0.01
         m1 = 1.
